@@ -20,7 +20,7 @@ const { error } = require("console");
 //each function is split into is own nested 'describe' block for organizational purposes
 describe("index.js", () => {
   let dynamicContent;
-  //handle initialization for each test
+  //handle initialization and set variables for each test
   beforeEach(() => {
     document.body.innerHTML = html.match(/<body[^>]*>([\s\S]*)<\/body>/i)[1];//adding only the body from index.html to unsure accurate comparison for test cases where no changes are supposed to occur
     dynamicContent = document.querySelector("#dynamic-content");
@@ -34,6 +34,7 @@ describe("index.js", () => {
   });
 
   describe("addElementToDOM", () => {
+    //addElementToDOM despite its name doesn't add anything and actually just changes the innerHTML of an existing element
     test("changes the element with matching containerId to have the provided innerHTML", () => {
       addElementToDOM("dynamic-content", "Test Change");
       expect(document.querySelector("#dynamic-content").innerHTML).toBe(
@@ -43,7 +44,7 @@ describe("index.js", () => {
     test("does nothing if provided an incorrect element id", () => {
       addElementToDOM("test-fail", "Should Not Exist");
       expect(document.body.innerHTML).not.toContain("Should Not Exist");
-      expect(document.body.innerHTML).toBe(html.match(/<body[^>]*>([\s\S]*)<\/body>/i)[1]);
+      expect(document.body.innerHTML).toBe(html.match(/<body[^>]*>([\s\S]*)<\/body>/i)[1]);//asserting that no changes occurred
     });
   });
 
@@ -57,7 +58,7 @@ describe("index.js", () => {
     });
     test("does nothing if provided an incorrect element id", () => {
       removeElementFromDOM("test-fail");
-      expect(document.body.innerHTML).toBe(html.match(/<body[^>]*>([\s\S]*)<\/body>/i)[1]);
+      expect(document.body.innerHTML).toBe(html.match(/<body[^>]*>([\s\S]*)<\/body>/i)[1]);//asserting that no changes occurred
     });
   });
 
@@ -70,7 +71,7 @@ describe("index.js", () => {
   });
 
   describe("handleFormSubmit", () => {
-    //set element referenses for handleFormSubmit
+    //set element references for handleFormSubmit here since they are only needed for the tests in this group
     let form, userInput, errorMessage;
 
     beforeEach(() => {
