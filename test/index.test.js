@@ -54,7 +54,7 @@ describe("index.js", () => {
       testElement.id = "test-element";
       document.body.appendChild(testElement);
       removeElementFromDOM("test-element");
-      expect(document.querySelector("#test-element")).toBe(null);
+      expect(document.querySelector("#test-element")).toBeFalsy();
     });
     test("does nothing if provided an incorrect element id", () => {
       removeElementFromDOM("test-fail");
